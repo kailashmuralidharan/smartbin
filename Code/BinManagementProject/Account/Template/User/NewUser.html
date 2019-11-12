@@ -1,0 +1,85 @@
+{% extends 'User/Index.html' %}
+
+{% block body %}
+
+  <div class="add_buttons">
+
+    <div class="button-group">
+      
+      <a href="{% url 'display_customers' %}" class="btn btn-primary btn-md btn-trim" role="button"> Laptops</a>
+      <a href="{% url 'new_customer' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+
+      <a href="{% url 'display_drivers' %}" class="btn btn-primary btn-md btn-trim" role="button"> Desktops</a>    
+      <a href="{% url 'new_driver' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+      
+      <a href="{% url 'display_admins' %}" class="btn btn-primary btn-md btn-trim" role="button"> Mobiles</a>
+      <a href="{% url 'new_admin' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+     
+    </div>
+
+  </div>
+
+  <div>
+
+    <h4>Currently Viewing {{ header }}</h4>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>User_Id</th>
+        <th>First_Name</th>
+        <th>Last_Name</th>
+        <th>Email_Id</th>
+        <th>Password</th>
+        <th>AddressLine1</th>
+        <th>AddressLine2</th>
+        <th>City</th>
+        <th>Pincode</th>
+        <th>contactNumber</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      {% for item in items %}
+      
+      <tr>
+        <td>{{ item.User_Id }}
+        <td>{{ item.First_Name }}</td>
+        <td>{{ item.Last_Name }} $</td>
+        <td>{{ item.Email_Id }}</td>
+        <td>{{ item.Password }}</td>
+        <td>{{ item.AddressLine1 }}</td>
+        <td>{{ item.AddressLine2 }}</td>
+        <td>{{ item.City }}</td>
+        <td>{{ item.Pincode }}</td>
+        <td>{{ item.contactNumber }}</td>
+
+
+        {% if header|lower == "customer" %}
+        <td>
+            <a href="{% url 'edit_customer' item.User_Id %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_customer' item.User_Id%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% elif header|lower == "driver" %}
+        <td>
+            <a href="{% url 'edit_driver' item.User_Id %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_driver' item.User_Id%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% else %}
+        <td>
+            <a href="{% url 'edit_admin' item.User_Id %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_admin' item.User_Id%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% endif %}
+
+
+      </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
