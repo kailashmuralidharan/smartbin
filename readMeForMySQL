@@ -1,0 +1,17 @@
+
+Steps for connecting to local MySQL dB:
+
+1. Add the following 2 lines in your settings.py and __init__.py 
+
+import pymysql
+pymysql.install_as_MySQLdb()
+
+2. Navigate inside your Virtual Environment to this path: \myvenv\Lib\site-packages\django\db\backends\mysql
+
+In operations.py, search for "decode" and replace it with "encode"
+In base.py, search for "version < (1, 3, 13):" and comment the code snippet inside if
+
+3. Save all the files, activate your virtual environment and cd inside BinManagementProject and run the following commands:
+
+pip install wheel
+pip install pymysql
