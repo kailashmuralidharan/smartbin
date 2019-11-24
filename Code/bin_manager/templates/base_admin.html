@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav nav-bar nav">
+            <li class = "nav-item"> <a class = "nav-link" href="{% url 'admintask:Admin_Home' %}"> Admin Home </a></li>
+            <!-- <li class = "nav-item"> <a class = "nav-link" href=""> Check Today's Demand </a></li> -->
+            <li class = "nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Demand & Issues
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'admintask:demand' %}">View Demand</a>
+                  <a class="dropdown-item" href="#">View Trips</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Create Issues</a>
+                  <a class="dropdown-item" href="#">Manage Issues</a>
+                </div>
+            </li>
+            <li class = "nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Customer & Area
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'admintask:create_route' %}">Create Route</a>
+                  <a class="dropdown-item" href="{% url 'admintask:list_route' %}">Manage Route</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'admintask:create_block' %}">Create Block</a>
+                  <a class="dropdown-item" href="{% url 'admintask:list_block' %}">Manage Block</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'admintask:create_customer' %}">Create Customer</a>
+                  <a class="dropdown-item" href="#">Manage Customer</a>
+                </div>
+            </li>
+            <li class = "nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Fleet & Drivers
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'admintask:create_truck' %}">Create Truck</a>
+                  <a class="dropdown-item" href="#">Delete Truck</a>
+                  <a class="dropdown-item" href="#">Update Truck</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'admintask:create_driver' %}">Create Driver</a>
+                  <a class="dropdown-item" href="#">Delete Driver</a>
+                  <a class="dropdown-item" href="#">Update Driver</a>
+                </div>
+            </li>
+            <li class = "nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Requests & Trips
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'admintask:create_request' %}">Create Request</a>
+                  <a class="dropdown-item" href="#">Delete Request</a>
+                  <a class="dropdown-item" href="#">Update Request</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'admintask:create_trip' %}">Create Trip</a>
+                  <a class="dropdown-item" href="#">Delete Trip</a>
+                  <a class="dropdown-item" href="#">Update Trip</a>
+                </div>
+            </li>
+        </div>
+
+    </nav>
+
+
+    <div class="content container">
+        {% block content2 %}
+        <h1>Welcome to Smart BIN Manager Admin!</h1>
+        {% endblock %}
+
+    </div>
+
+
+{% endblock %}

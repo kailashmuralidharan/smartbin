@@ -1,0 +1,36 @@
+{% extends "base_admin.html" %}
+{% block content2 %}
+
+
+<div class="centerstage">
+    <table class = "table">
+    <thead class = "thead-dark">
+        <th>Request Id</th>
+        <th>Customer Id</th>
+        <th>Request Type</th>
+        <th>Trip Id</th>
+    </thead>
+    {% if  req_lst %}
+    {% for request in req_lst %}
+        <div class="post">
+            <tr>
+                <td>
+                    {{request.request_id}}
+                </td>
+                <td>
+                    {{request.customer_id}}
+                </td>
+                <td>
+                    {{request.request_type}}
+                </td>
+                <td>
+                    {{request.bin_id}}
+                </td>
+            </tr>
+        </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+{% endblock%}

@@ -1,0 +1,44 @@
+{% extends "base_admin.html" %}
+{% block content2 %}
+
+
+<div class="centerstage">
+    <table class = "table">
+    <thead class = "thead-dark">
+        <th>Block ID</th>
+        <th>Block Name</th>
+        <th>Route ID</th>
+        <th>Delete</th>
+        <th>Update</th>
+    </thead>
+    {% if  list_block %}
+    {% for block in list_block %}
+        <div class="post">
+            <tr>
+                <td>
+                    {{block.block_id}}
+                </td>
+                <td>
+                    {{block.block_name}}
+                </td>
+                <td>
+                    {{block.route}}
+                </td>
+                <td>
+                  <form action="{% url 'admintask:delete_block' id=block.block_id %}" method="post"> 	{% csrf_token %}
+                    <input type="submit" value = "Delete" class="btn btn-danger" >
+                  </form>
+                </td>
+            <td>
+              <form action="{% url 'admintask:update_block' id=block.block_id %}" method="post"> 	{% csrf_token %}
+                <input type="submit" value = "Update" class="btn btn-warning" >
+              </form>
+            </td>
+            </tr>
+        </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+{% endblock%}

@@ -1,0 +1,42 @@
+{% extends "base_admin.html" %}
+{% block content2 %}
+
+
+<div class="centerstage">
+    <table class = "table">
+    <thead class = "thead-dark">
+        <th>Route ID</th>
+        <th>Route Name</th>
+        <th>Delete</th>
+        <th>Update</th>
+    </thead>
+    {% if  list_route %}
+    {% for route in list_route %}
+        <div class="post">
+            <tr>
+                <td>
+                    {{route.route_id}}
+                </td>
+                <td>
+                    {{route.route_name}}
+                </td>
+                <td>
+                  <form action="{% url 'admintask:delete_route' id=route.route_id %}" method="post"> 	{% csrf_token %}
+                    <input type="submit" value = "Delete" class="btn btn-danger" >
+                    <!-- <a href="{% url 'admintask:delete_route' id=route.route_id %}"></a> -->
+                  </form>
+                </td>
+            <td>
+              <form action="{% url 'admintask:update_route' id=route.route_id %}" method="post"> 	{% csrf_token %}
+                <input type="submit" value = "Update" class="btn btn-warning" >
+                <!-- <a href="{% url 'admintask:delete_route' id=route.route_id %}"></a> -->
+              </form>
+            </td>
+            </tr>
+        </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+{% endblock%}
