@@ -1,0 +1,14 @@
+{% extends "base_admin.html" %}
+{% block content2 %}
+
+<div class="form-group">
+<form action="{%  url 'admintask:search_customer' id=form.customer_id %}" method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <input type="submit" class="btn btn-primary" value="Search">
+
+</form>
+</div>
+
+
+{% endblock%}

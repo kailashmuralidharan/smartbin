@@ -28,3 +28,20 @@ class CustomerBinForm(ModelForm):
     class Meta:
         model = Customer
         fields = '__all__'
+
+
+class CustomerEditForm(ModelForm):
+    customer_id = forms.IntegerField(disabled = True)
+    user = forms.IntegerField(disabled = True)
+    class Meta:
+        model = Customer
+        fields = '__all__'
+
+class CustomerSearchForm(forms.Form):
+    # block = forms.CharField(disabled = True )
+    # user = forms.IntegerField(disabled = True)
+    customer_id = forms.IntegerField()
+    # user_id = forms.IntegerField()
+    # class Meta:
+    #     model = Customer
+    #     fields = ['customer_id','user','block']

@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, FormView, DeleteView)
 from django.urls import reverse_lazy, reverse
-from .models import AccountForm, CustomerBinForm
+from .models import AccountForm, CustomerBinForm, CustomerSearchForm
+from django.db.models import Q
 
 from mgr_database.models import  Account, Customer
 
@@ -24,7 +25,35 @@ class createBinBlockRelation(CreateView):
     def form_valid(self,form):
         print(form.cleaned_data)
         return super().form_valid(form)
-        
+
+
+class manageCustomer(FormView):
+    template_name = 'detail.html'
+    form_class = CustomerSearchForm
+    success_url = '/admin/success/'
+
+    def form_valid(self,form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+
+
+class viewCustomerDetails(ListView):
+    context_object_name = 'cust_details'
+    model = Customer
+    template_name = 'display.html'
+    # queryset = Customer.objects.filter(block = 2)
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Customer.objects.filter(
+        Q (block=query)
+        )
+        return object_list
+
+
+
+
 # class listBlock(ListView):
 #     model = Block
 #     template_name = 'list_block.html'

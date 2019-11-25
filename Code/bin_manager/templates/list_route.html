@@ -23,13 +23,11 @@
                 <td>
                   <form action="{% url 'admintask:delete_route' id=route.route_id %}" method="post"> 	{% csrf_token %}
                     <input type="submit" value = "Delete" class="btn btn-danger" >
-                    <!-- <a href="{% url 'admintask:delete_route' id=route.route_id %}"></a> -->
                   </form>
                 </td>
             <td>
               <form action="{% url 'admintask:update_route' id=route.route_id %}" method="post"> 	{% csrf_token %}
                 <input type="submit" value = "Update" class="btn btn-warning" >
-                <!-- <a href="{% url 'admintask:delete_route' id=route.route_id %}"></a> -->
               </form>
             </td>
             </tr>

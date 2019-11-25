@@ -1,0 +1,48 @@
+{% extends "base_admin.html" %}
+{% block content2 %}
+
+<form class="" action="{% url 'admintask:search_customer'%}" method="get">
+  <input name="q" type="text" placeholder="Search" value=0>
+  <input type="submit" value = "Search Customer by Block" class="btn btn-primary" >
+</form>
+
+<div class="centerstage">
+    <table class = "table">
+    <thead class = "thead-dark">
+        <th>Customer ID</th>
+        <th>User ID</th>
+        <th>Block ID</th>
+        <th>No of General Bins</th>
+        <th>No of Recycle Bins</th>
+        <th>No of Compost Bins</th>
+    </thead>
+    {% if  cust_details %}
+    {% for cust in cust_details %}
+        <div class="post">
+            <tr>
+                <td>
+                    {{cust.customer_id}}
+                </td>
+                <td>
+                    {{cust.user}}
+                </td>
+                <td>
+                    {{cust.block}}
+                </td>
+                <td>
+                    {{cust.general_bin_qty}}
+                </td>
+                <td>
+                    {{cust.recycle_bin_qty}}
+                </td>
+                <td>
+                    {{cust.compost_bin_qty}}
+                </td>
+            </tr>
+        </div>
+    {% endfor %}
+    {% endif %}
+
+
+
+{% endblock%}

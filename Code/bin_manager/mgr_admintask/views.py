@@ -8,7 +8,7 @@ from mgr_admintask.forms import TripForm
 from django.urls import reverse_lazy, reverse
 from .view_route import createRoute, updateRoute, deleteRoute, listRoute
 from .view_block import createBlock, updateBlock, deleteBlock, listBlock
-from .view_customer import createCustomer, createBinBlockRelation
+from .view_customer import createCustomer, createBinBlockRelation, manageCustomer, viewCustomerDetails
 
 # Create your views here.
 
