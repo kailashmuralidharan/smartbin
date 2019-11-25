@@ -10,7 +10,7 @@ from django.urls import reverse
 #   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-
+AccountChoices = [(0,'Customer'),(1,'Driver'),(2,'Admin')]
 
 class Account(models.Model):
     user_id = models.IntegerField(db_column='User_ID', primary_key=True)  # Field name made lowercase.
@@ -23,7 +23,7 @@ class Account(models.Model):
     city = models.CharField(db_column='City', max_length=32, blank=True, null=True)  # Field name made lowercase.
     pincode = models.CharField(db_column='Pincode', max_length=10, blank=True, null=True)  # Field name made lowercase.
     contact_number = models.IntegerField(db_column='Contact_Number', blank=True, null=True)  # Field name made lowercase.
-    user_type_id = models.IntegerField(db_column='User_Type_ID', blank=True, null=True)  # Field name made lowercase.
+    user_type_id = models.IntegerField(db_column='User_Type_ID', choices = AccountChoices, default = 0)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -126,6 +126,9 @@ class Customer(models.Model):
     customer_id = models.IntegerField(db_column='Customer_ID', primary_key=True)  # Field name made lowercase.
     user = models.ForeignKey('Account',on_delete=models.DO_NOTHING)  # Field name made lowercase.
     block = models.ForeignKey('Block',on_delete=models.DO_NOTHING)  # Field name made lowercase.
+    general_bin_qty = models.IntegerField(db_column='bin_general_qty', blank=False, null=False,default = 1)
+    recycle_bin_qty = models.IntegerField(db_column='bin_recycle_qty', blank=False, null=False,default = 1)
+    compost_bin_qty = models.IntegerField(db_column='bin_compost_qty', blank=False, null=False,default = 1)
 
     class Meta:
         managed = False

@@ -31,6 +31,7 @@ urlpatterns = [
     path('update_block/<int:id>/',views.updateBlock.as_view(),name='update_block'),
     path('delete_block/<int:id>/',views.deleteBlock.as_view(),name='delete_block'),
     path('create_customer/',views.createCustomer.as_view(),name='create_customer'),
+    path('create_bin/',views.createBinBlockRelation.as_view(),name='create_bin'),
     path('create_truck/',views.createTruck.as_view(),name='create_truck'),
     path('create_driver/',views.createTruckDriver.as_view(),name='create_driver'),
     path('create_request/',views.createRequest.as_view(),name='create_request'),

@@ -8,18 +8,16 @@ from mgr_admintask.forms import TripForm
 from django.urls import reverse_lazy, reverse
 from .view_route import createRoute, updateRoute, deleteRoute, listRoute
 from .view_block import createBlock, updateBlock, deleteBlock, listBlock
-# from mgr_admintask.admincreate import createTrip
-# Create your views here.
+from .view_customer import createCustomer, createBinBlockRelation
 
-# class AdminIndex(TemplateView):
-#     template_name = 'base_admin.html'
+# Create your views here.
 
 
 class successView(TemplateView):
     template_name = 'success.html'
 
-class createCustomer(FormView):
-    pass
+# class createCustomer(FormView):
+#     pass
 
 
 class createRequest(CreateView):
