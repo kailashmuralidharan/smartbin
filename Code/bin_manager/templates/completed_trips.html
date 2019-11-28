@@ -1,0 +1,45 @@
+{% extends "base_driver.html" %}
+{% block content2 %}
+
+
+<div class="centerstage">
+    <table class = "table">
+    <thead class = "thead-dark">
+        <th>Trip ID</th>
+        <th>Truck ID</th>
+        <th>Trip Date</th>
+        <th>Current Status</th>
+        <th>Action</th>
+    </thead>
+    {% if  comp_trip_lst %}
+    {% for trip in comp_trip_lst %}
+        <div class="post">
+            <tr>
+                <td>
+                    {{trip.trip_id}}
+                </td>
+                <td>
+                    {{trip.truck_id}}
+                </td>
+                <td>
+                    {{trip.trip_date}}
+                </td>
+                <td>
+                    {{trip.trip_status}}
+                </td>
+                <td>
+                                
+                    <form action="{% url 'truckdriver:view_trip' pk=trip.trip_id %}" method="post">
+                            {% csrf_token %}   
+                            <input type="submit" class="save btn btn-dark" value="View">
+                    </form>
+
+            </td>                    
+            </tr>
+        </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+{% endblock%}

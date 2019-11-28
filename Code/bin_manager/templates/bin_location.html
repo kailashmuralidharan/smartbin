@@ -1,0 +1,25 @@
+{% extends "base_driver.html" %}
+{% block content2 %}            
+
+    <div class="bin_obj">
+        {% if bin_obj %}
+                
+                <table class = "table">
+                        <thead class = "thead-dark">
+                            <th>Bin Location</th>
+                            <th>Bin Weight </th>
+                        </thead>
+                        <tr>
+            
+                            <td>
+                                {{bin_obj.bin_location}}
+                            </td>
+                            <td>
+                                {{bin_obj.bin_weight}}
+                            </td>
+                        </tr>
+                </table>     
+        {% endif %}
+        
+    </div>
+{% endblock %}

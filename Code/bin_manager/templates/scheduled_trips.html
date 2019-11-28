@@ -1,0 +1,54 @@
+{% extends "base_driver.html" %}
+{% block content2 %}
+
+
+<div class="centerstage">
+    <table class = "table">
+    <thead class = "thead-dark">
+        <th>Trip ID</th>
+        <th>Truck ID</th>
+        <th>Trip Date</th>
+        <th>Current Status</th>
+        <th>Action</th>
+    </thead>
+    {% if  sch_trip_lst %}
+
+
+
+    {% for trip in sch_trip_lst %}
+        <div class="post">
+            <tr>
+                <td>
+                    {{trip.trip_id}}
+                </td>
+                <td>
+                    {{trip.truck_id}}
+                </td>
+                <td>
+                    {{trip.trip_date}}
+                </td>
+                <td>
+                    {{trip.trip_status}}
+                </td>
+                <td>
+                    {% if  trip.trip_status == "PROGRESS" %}    
+                    <form action="{% url 'truckdriver:view_trip' pk=trip.trip_id %}" method="post">
+                        {% csrf_token %}   
+                        <input type="submit" class="save btn btn-dark" value="View">
+                    </form>
+                    
+                    {% else %}
+                    <form action="{% url 'truckdriver:start_trip' pk=trip.trip_id %}" method="post">
+                            {% csrf_token %}   
+                            <input type="submit" class="save btn btn-dark" value="Start" >
+                    </form>
+                    {% endif %}
+            </td>                    
+            </tr>
+        </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+{% endblock%}

@@ -1,0 +1,111 @@
+{% extends "base_driver.html" %}
+{% block content2 %}            
+        
+</div>
+
+<div class="request-header">
+        <h1>Scheduled Requests
+            <span class="glyphicon glyphicon-flag"aria-hidden="true"></span>
+        </h1>
+    </div>
+    
+        <div class="request-table">
+
+            {% if scheduled_requests %}
+    
+            <table class = "table">
+                <thead class = "thead-dark">
+                    <th>Request ID</th>
+                    <th>Request Type</th>
+                    <th>Status</th>
+                    <th>Action </th>
+                    <th>Complete</th>
+                </thead>
+                {% for request in scheduled_requests %}
+                <tr>
+                    
+                    <td>
+                        {{request.request_id}}
+                    </td>
+                    <td>
+                            {{request.request_type}}
+                        </td>
+                    <td>
+                            {{request.request_status}}
+                    </td>
+                    <td>
+                            
+                        <form action="{% url 'truckdriver:bin_location' pk=request.request_id %}" method="post">
+                                    {% csrf_token %}   
+                                    <input type="submit" class="save btn btn-dark" value="View">
+                            </form>
+
+                    </td>
+                    <td>
+                                
+                        <form action="{% url 'truckdriver:complete_request' pk=request.request_id %}" method="post">
+                                    {% csrf_token %}   
+                                    <input type="submit" class="save btn btn-dark" value="Complete">
+                            </form>
+
+                    </td>                    
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            
+            <p> Hurray! All requests in this trip are completed! Proceed with next trip! </p>
+    
+            {% endif %}
+    
+        </div>
+
+        <div class="request-header">
+                <h1>Completed Requests
+                <span class="glyphicon glyphicon-check"aria-hidden="true"></span>
+                </h1>
+            </div>
+                <div class="request-table">
+        
+                    {% if completed_requests %}
+            
+                    <table class = "table">
+                        <thead class = "thead-dark">
+                            <th>Request ID</th>
+                            <th>Request Type</th>
+                            <th>Status</th>
+                            <th>Action </th>
+                            
+                        </thead>
+                        {% for request in completed_requests %}
+                        <tr>
+                            
+                            <td>
+                                {{request.request_id}}
+                            </td>
+                            <td>
+                                    {{request.request_type}}
+                                </td>
+                            <td>
+                                    {{request.request_status}}
+                            </td>
+                            <td>
+                                <form action="{% url 'truckdriver:bin_location' pk=request.request_id %}" method="post">
+                                            {% csrf_token %}   
+                                            <input type="submit" class="save btn btn-dark" value="View">
+                                    </form>
+                            </td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% else %}
+                    
+                
+                <p> Time for Work!! </p>            
+                    
+                {% endif %}
+            
+            </div>
+            
+{% endblock%}

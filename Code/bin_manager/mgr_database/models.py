@@ -255,10 +255,20 @@ class Score(models.Model):
         db_table = 'score'
 
 
+TRIP_STATUS_CHOICES = (
+    ('cancelled','CANCELLED'),
+    ('scheduled','SCHEDULED'),
+    ('completed','COMPLETED'),
+
+)
+
 class Trip(models.Model):
     trip_id = models.IntegerField(db_column='Trip_ID',primary_key=True)  # Field name made lowercase.
     trip_date = models.DateField(db_column='Trip_Date', blank=True, null=True)  # Field name made lowercase.
     route_id = models.IntegerField(db_column='Route_ID', blank=True, null=True)  # Field name made lowercase.
+    trip_status =  models.CharField(db_column='Trip_Status', max_length=10, choices=TRIP_STATUS_CHOICES)  # Field name made lowercase.
+    truck_id = models.IntegerField(db_column='Truck_ID', blank=True, null=True)  # Field name made lowercase.
+    truck_driver_id = models.IntegerField(db_column='Truck_Driver_ID', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -307,3 +317,27 @@ class Users(models.Model):
     class Meta:
         managed = False
         db_table = 'users'
+
+ISSUE_STATUS_CHOICES = (
+    ('new','NEW'),
+    ('open','OPEN'),
+    ('resolved','RESOLVED'),
+    ('reopened','REOPENED'),
+)
+
+ISSUE_TYPE_CHOICES = (
+    ('TRUCK','TRUCK'),
+    ('BIN','BIN'),
+    ('CUSTOMER-RELATED','CUSTOMER-RELATED'),
+    ('OTHER','OTHER')
+)
+    
+class Issues_Detail(models.Model):
+    issue_id = models.AutoField(primary_key=True)  # Field name made lowercase.
+    issue_type = models.CharField(db_column='Issue_Type', max_length=32, blank=False, choices=ISSUE_TYPE_CHOICES, default='OTHER')  # Field name made lowercase.
+    issue_desc = models.TextField(db_column='Issue_Desc', null=True)  # Field name made lowercase.
+    reported_date = models.DateField(db_column='Reported_Date', blank=True, null=True)  # Field name made lowercase.
+    issue_status = models.CharField(db_column='Issue_Status', max_length=10, choices=ISSUE_STATUS_CHOICES, default='NEW')  # Field name made lowercase.
+    resolved_date = models.DateField(db_column='Resolved_Date', blank=True, null=True)  # Field name made lowercase.
+    resolution_desc = models.CharField(db_column='Resolution_Desc', max_length=256, blank=True, null=True)  # Field name made lowercase.
+    reported_by = models.IntegerField(db_column='reported_by', blank=True, null=True)  # Field name made lowercase.
