@@ -1,6 +1,8 @@
 *.pyc
+*.tcl
 *~
 __pycache__
 myvenv
+binEnv
 db.sqlite3
 .DS_Store
