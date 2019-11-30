@@ -26,18 +26,6 @@ class ICalculator(IBillGenerator, metaclass=abc.ABCMeta):
         pass
 
 
-# class BaseFareCalculator(ICalculator):
-#     """
-#     Add responsibilities to the component.
-#     """
-
-#     def GenerateBill(self):
-#         # ...
-#         self._billGenerator.GenerateBill()
-#         print("from base fare")
-
-#         # ...
-
 
 class PriorityFareCalculator(ICalculator):
     """
@@ -86,7 +74,7 @@ class BaseFareCalculator(IBillGenerator):
         
 
 
-class CustomerBillCalculator(IBillGenerator):
+class CustomerBillGenerator(IBillGenerator):
     """
     Define an object to which additional responsibilities can be
     attached.
@@ -97,12 +85,16 @@ class CustomerBillCalculator(IBillGenerator):
          return customerTypeArg
 
     def GenerateMonthlyBill(self,customerType):
-        switcher = {
-        customerType.Platinum :TaxCalculator(DiscountCalculator(BaseFareCalculator())).GenerateBill() ,
-        customerType.Gold :TaxCalculator(DiscountCalculator(PriorityFareCalculator(BaseFareCalculator()))).GenerateBill() ,
-        customerType.Regular :TaxCalculator(PriorityFareCalculator(BaseFareCalculator())).GenerateBill() }
-        return switcher.get(customerType, "InValid Customer")
-
+        # print(customerType)
+        if(customerType == customerType.Platinum):
+            TaxCalculator(DiscountCalculator(BaseFareCalculator())).GenerateBill() 
+        elif (customerType == customerType.Gold):
+            TaxCalculator(DiscountCalculator(PriorityFareCalculator(BaseFareCalculator()))).GenerateBill()
+        elif (customerType == customerType.Regular):
+            customerType.Regular :TaxCalculator(PriorityFareCalculator(BaseFareCalculator())).GenerateBill()
+        else:
+            print("Invalid Customer")
+        return
     def GenerateBill(self):
         customertoGenerateBill = self.GetAllCustomersToProcess()
         for customer in customertoGenerateBill:
@@ -118,11 +110,11 @@ class customerType(enum.Enum):
    Regular = 3
 
 
-def main():
+# def main():
 
-    calculator = CustomerBillCalculator()
-    calculator.GenerateBill()
+#     calculator = CustomerBillGenerator()
+#     calculator.GenerateBill()
     
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
