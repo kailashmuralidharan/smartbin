@@ -6,7 +6,7 @@ import scheduler
 
 
 
-class Manager:
+class TripManager:
     def __init__(self):
         self._commands = []
 
@@ -18,7 +18,7 @@ class Manager:
             command.execute()
 
 
-class Reveiver:
+class Receiver:
 
     def action(self):
         print('Starting stage...')
@@ -26,11 +26,11 @@ class Reveiver:
 
 
 def main():
-    receiver = Reveiver()
+    receiver = Receiver()
     stage1 = scorer.ScoreRequests(receiver)
     stage2 = scheduler.ScheduleTrip(receiver)
     stage3 = assigner.AssignStuffs(receiver)
-    invoker = Manager()
+    invoker = TripManager()
     invoker.store_command(stage1)
     invoker.store_command(stage2)
     invoker.store_command(stage3)
