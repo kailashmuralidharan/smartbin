@@ -31,35 +31,43 @@ class PriorityFareCalculator(ICalculator):
     """
     Add responsibilities to the component.
     """
-
-    def GenerateBill(self):
+    priorityFare = 5
+    def GenerateBill(self,customerDetail):
         # ...
-        self._billGenerator.GenerateBill()
+        self._billGenerator.GenerateBill(customerDetail)
         print("from priority")
+        customerDetail.PriorityRequestFare = customerDetail.totalNumberofPriorityRequests * self.priorityFare
+        print(customerDetail.PriorityRequestFare)
         # ...
 
 class TaxCalculator(ICalculator):
     """
     Add responsibilities to the component.
     """
-
-    def GenerateBill(self):
+    taxPercentage = 10
+    def GenerateBill(self,customerDetail):
         # ...
-        self._billGenerator.GenerateBill()
+        self._billGenerator.GenerateBill(customerDetail)
         print("from tax")
-
+        customerDetail.tax = ((customerDetail.baseFare+customerDetail.PriorityRequestFare-customerDetail.discount)/100)*self.taxPercentage
+        print(customerDetail.tax)
         # ...
 
 class DiscountCalculator(ICalculator):
     """
     Add responsibilities to the component.
     """
+    # isDiscountAvailable = True #will be 
+    discountPercentage = 10
 
-    def GenerateBill(self):
+    def GenerateBill(self,customerDetail):
         # ...
-        self._billGenerator.GenerateBill()
+        self._billGenerator.GenerateBill(customerDetail)
         print("from discount")
-
+        customerDetail.discountPercentage = self.discountPercentage
+        customerDetail.discount = ((customerDetail.baseFare+customerDetail.PriorityRequestFare)/100) * self.discountPercentage
+        print(customerDetail.discountPercentage)
+        print(customerDetail.discount)
         # ...
 
 class BaseFareCalculator(IBillGenerator):
@@ -67,9 +75,13 @@ class BaseFareCalculator(IBillGenerator):
     Define an object to which additional responsibilities can be
     attached.
     """
+    baseFare = 10
+
     # self._customerType = customerType
-    def GenerateBill(self):
+    def GenerateBill(self,customerDetail):
         print("from base")
+        customerDetail.baseFare = customerDetail.totalNumberofRequests * self.baseFare
+        print(customerDetail.baseFare)
 
         
 
@@ -79,27 +91,39 @@ class CustomerBillGenerator(IBillGenerator):
     Define an object to which additional responsibilities can be
     attached.
     """
+    isBillGenerationCompleted = False
+    customerBillDetails =[]
 
     def GetAllCustomersToProcess(self):
-         customerTypeArg = [customerType.Platinum, customerType.Gold, customerType.Regular]
-         return customerTypeArg
+        #  customerTypeArg = [customerType.Platinum, customerType.Gold, customerType.Regular]
+        #  return customerTypeArg
 
-    def GenerateMonthlyBill(self,customerType):
+        customerDetails = []
+        customerDetails.append(customerBillDetail(customerType.Platinum,"Tom",5,2))
+        customerDetails.append(customerBillDetail(customerType.Gold,"Jim",5,2))
+        customerDetails.append(customerBillDetail(customerType.Regular,"Sam",5,2))
+        return customerDetails
+
+    def GenerateMonthlyBill(self,customerDetail):
         # print(customerType)
-        if(customerType == customerType.Platinum):
-            TaxCalculator(DiscountCalculator(BaseFareCalculator())).GenerateBill() 
-        elif (customerType == customerType.Gold):
-            TaxCalculator(DiscountCalculator(PriorityFareCalculator(BaseFareCalculator()))).GenerateBill()
-        elif (customerType == customerType.Regular):
-            customerType.Regular :TaxCalculator(PriorityFareCalculator(BaseFareCalculator())).GenerateBill()
+        if(customerDetail.customerType == customerType.Platinum):
+            TaxCalculator(DiscountCalculator(BaseFareCalculator())).GenerateBill(customerDetail) 
+        elif (customerDetail.customerType == customerType.Gold):
+            TaxCalculator(DiscountCalculator(PriorityFareCalculator(BaseFareCalculator()))).GenerateBill(customerDetail)
+        elif (customerDetail.customerType == customerType.Regular):
+            # customerType.Regular :
+            TaxCalculator(PriorityFareCalculator(BaseFareCalculator())).GenerateBill(customerDetail)
         else:
             print("Invalid Customer")
+        customerDetail.calculateTotal()
         return
     def GenerateBill(self):
         customertoGenerateBill = self.GetAllCustomersToProcess()
-        for customer in customertoGenerateBill:
-            print(customer)
-            self.GenerateMonthlyBill(customer)
+        for customerDetail in customertoGenerateBill:
+            print(customerDetail.customerType)
+            self.GenerateMonthlyBill(customerDetail)
+        self.isBillGenerationCompleted =True
+        self.customerBillDetails= customertoGenerateBill
        
 
 
@@ -109,12 +133,35 @@ class customerType(enum.Enum):
    Gold = 2
    Regular = 3
 
+class customerBillDetail:
+    customerType = None
+    name =""
+    baseFare = 0.0
+    discount =0.0
+    tax =0.0
+    PriorityRequestFare =0.0
+    total = 0.0
+    dueDate = None
+    totalNumberofRequests=0
+    totalNumberofPriorityRequests =0
+    discountPercentage =0
+             
+    def calculateTotal(self): 
+        print('Setting total') 
+        self.total = self.baseFare+self.PriorityRequestFare-self.discount+self.tax
+        print(self.total) 
 
-# def main():
+    def __init__(self, customerType,name,totalNumberofRequests,totalNumberofPriorityRequests):
+        self.customerType = customerType
+        self.name = name
+        self.totalNumberofRequests = totalNumberofRequests
+        self.totalNumberofPriorityRequests =totalNumberofPriorityRequests
 
-#     calculator = CustomerBillGenerator()
-#     calculator.GenerateBill()
+def main():
+
+    calculator = CustomerBillGenerator()
+    calculator.GenerateBill()
     
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
