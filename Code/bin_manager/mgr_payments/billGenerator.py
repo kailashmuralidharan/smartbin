@@ -1,5 +1,11 @@
 import abc
 import enum
+from datetime import timedelta
+from datetime import datetime  
+
+from django.core import cache
+
+
 
 class IBillGenerator(metaclass=abc.ABCMeta):
     """
@@ -93,6 +99,7 @@ class CustomerBillGenerator(IBillGenerator):
     """
     isBillGenerationCompleted = False
     customerBillDetails =[]
+    cacheKey = "GeneratedBills"
 
     def GetAllCustomersToProcess(self):
         #  customerTypeArg = [customerType.Platinum, customerType.Gold, customerType.Regular]
@@ -117,14 +124,23 @@ class CustomerBillGenerator(IBillGenerator):
             print("Invalid Customer")
         customerDetail.calculateTotal()
         return
+
+    def CacheResults(self):
+            if (cache.cache.get(self.cacheKey)):
+                return
+            else:
+                cache.cache.set(self.cacheKey,self.customerBillDetails,500)
+            return
+    def GetCachedResult(self):
+        return cache.cache.get(self.cacheKey)
+
     def GenerateBill(self):
-        customertoGenerateBill = self.GetAllCustomersToProcess()
-        for customerDetail in customertoGenerateBill:
+        self.customerBillDetails = self.GetAllCustomersToProcess()
+        for customerDetail in self.customerBillDetails:
             print(customerDetail.customerType)
             self.GenerateMonthlyBill(customerDetail)
         self.isBillGenerationCompleted =True
-        self.customerBillDetails= customertoGenerateBill
-       
+        self.CacheResults()
 
 
 # Using enum class create enumerations
@@ -141,7 +157,7 @@ class customerBillDetail:
     tax =0.0
     PriorityRequestFare =0.0
     total = 0.0
-    dueDate = None
+    dueDate = (datetime.now() + timedelta(days=15)).strftime("%b %d %Y")
     totalNumberofRequests=0
     totalNumberofPriorityRequests =0
     discountPercentage =0
@@ -157,11 +173,11 @@ class customerBillDetail:
         self.totalNumberofRequests = totalNumberofRequests
         self.totalNumberofPriorityRequests =totalNumberofPriorityRequests
 
-def main():
+# def main():
 
-    calculator = CustomerBillGenerator()
-    calculator.GenerateBill()
+#     calculator = CustomerBillGenerator()
+#     calculator.GenerateBill()
     
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

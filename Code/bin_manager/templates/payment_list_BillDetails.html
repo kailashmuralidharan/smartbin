@@ -1,0 +1,33 @@
+{% extends "base_admin.html" %}
+{% block content2 %}
+
+<div class="centerstage">
+    <table class = "table">
+    <thead class = "thead-dark">
+        <th>CustomerName</th>
+        <th>CustomerType</th>
+        <th>BillAmount</th>
+        <th>DueDate</th>
+    </thead>
+    {% if  list_BillDetails %}
+    {% for customer in list_BillDetails %}
+        <div class="post">
+        <tr>
+            <td>
+                {{customer.name}}
+            </td>
+            <td>
+                {{customer.customerType.name}}
+            </td>
+            <td>
+                {{customer.total}}
+            </td>
+            <td>
+                {{customer.dueDate}}
+            </td>
+        </tr>
+        </div>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock%}

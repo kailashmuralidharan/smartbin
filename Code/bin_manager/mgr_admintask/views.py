@@ -9,6 +9,9 @@ from django.urls import reverse_lazy, reverse
 from .view_route import createRoute, updateRoute, deleteRoute, listRoute
 from .view_block import createBlock, updateBlock, deleteBlock, listBlock
 from .view_customer import createCustomer, createBinBlockRelation, manageCustomer, viewCustomerDetails
+# from mgr_payments import views_payments
+from mgr_payments import billGenerator
+
 
 # Create your views here.
 
@@ -78,3 +81,35 @@ class CreateTripView(FormView):
     def form_valid(self,form):
         form.save()
         return super().form_valid(form)
+
+
+
+# Create your views here.
+
+class listGeneratedBills(ListView):
+    model = billGenerator.customerBillDetail
+    template_name = 'payment_list_BillDetails.html'
+    context_object_name = 'list_BillDetails'
+   
+    def get_queryset(self):
+        customerBillGenerator = billGenerator.CustomerBillGenerator()
+        customerBillGenerator.GenerateBill()
+        return customerBillGenerator.customerBillDetails
+
+# class customerBillDetailView(DetailView):
+#     model = billGenerator.customerBillDetail
+#     template_name = 'payment_Customer_BillDetail.html'
+#     customerBillGenerator = billGenerator.CustomerBillGenerator()
+#     cache= customerBillGenerator.GetCachedResult()
+#     context_object_name = 'customer_billDetailedView'
+#     # def get_object(self):
+#     #     id_ =self.kwargs.get("name")
+
+#     def get_queryset(self):
+#         self.customerName = get_object_or_404(billGenerator.customerBillDetail, name=self.kwargs.get("name"))
+#         return self.cache.filter(name =self.customerName)
+#     # def book_detail_view(self,request, name):
+#     #     customer = self.cache.filter(name =self.customerName)
+#     #     return render(request, 'payment_Customer_BillDetail.html', context={'customer_billDetailedView': customer})
+ # path('customer_billDetailedView/<name>/', views.customerBillDetailView.as_view(),name='customer_billDetailedView'),
+    # path(r'^customer_billDetailedView/(?P<name>\d+)$', views.customerBillDetailView.as_view(),name='customer_billDetailedView'),

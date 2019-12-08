@@ -39,6 +39,7 @@ urlpatterns = [
     path('create_driver/',views.createTruckDriver.as_view(),name='create_driver'),
     path('create_request/',views.createRequest.as_view(),name='create_request'),
     path('create_trip/',views.CreateTripView.as_view(),name='create_trip'),
-    # path('create_trip/',views.CreateTripView.as_view(),name='create_trip'),
-
+    path('list_BillDetails/',views.listGeneratedBills.as_view(),name='list_BillDetails'),
+    # path('customer_billDetailedView/<name>/', views.customerBillDetailView.as_view(),name='customer_billDetailedView'),
+    # path(r'^customer_billDetailedView/(?P<name>\d+)$', views.customerBillDetailView.as_view(),name='customer_billDetailedView'),
 ]
