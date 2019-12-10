@@ -18,8 +18,8 @@
             <ul class="nav nav-tab">
             <li> <a class = "navbar-brand bigbrand" href="{% url 'accounts:Home' %}"> Home </a></li>
             <li class = "nav-item"> <a class = "nav-link" href="{% url 'admintask:Admin_Home' %}"> Admin </a></li>
-            <li class = "nav-item"> <a class = "nav-link" href="#"> Customer </a></li>
-            <li class = "nav-item"> <a class = "nav-link" href=#> Driver </a></li>
+            <li class = "nav-item"> <a class = "nav-link" href="{% url 'customer:Customer_Hub' %}"> Customer </a></li>
+            <li class = "nav-item"> <a class = "nav-link" href={% url 'truckdriver:TruckDriver_Home' %}> Driver </a></li>
             </ul>
         </div>
 
