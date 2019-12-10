@@ -10,4 +10,4 @@ class TripForm(ModelForm):
     trip_id = forms.IntegerField(initial = None)
     class Meta:
         model = Trip
-        fields = ['trip_id','trip_date','route_id']
+        fields = '__all__'
