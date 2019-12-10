@@ -11,8 +11,8 @@
                   Requests
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{% url 'accounts:request' %}">Request Pickup</a>
-                  <a class="dropdown-item" href="{% url 'accounts:viewrequests' %}">View Pickup</a>
+                  <a class="dropdown-item" href="{% url 'customer:request' %}">Request Pickup</a>
+                  <a class="dropdown-item" href="{% url 'customer:viewrequests' %}">View Pickup</a>
                 </div>
             </li>
             <!-- To be done, Issues model required?-->
@@ -21,15 +21,15 @@
                   Issue
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{% url 'admintask:create_route' %}">Report an Issue</a>
+                  <a class="dropdown-item" href="{% url 'admintask:create_route' %}">Report an Issue</a> <!-- To be corrected-->>
                 </div>
             </li>
             <!-- Doesn't work 404-->
             <li class = "nav-item">
-              <a class = "nav-link" href="{% url 'accounts:updateprofile' %}"> Update Profile </a>
+              <a class = "nav-link" href="{% url 'customer:updateprofile' %}"> Update Profile </a>
             </li>
             <li class = "nav-item">
-              <a class = "nav-link" href="{% url 'accounts:payBill' %}"> Pay </a>
+              <a class = "nav-link" href="{% url 'customer:payBill' %}"> Pay </a>
             </li>
         </div>
 
