@@ -91,7 +91,8 @@ class MessageDetail(models.Model):
     class Meta:
 
         db_table = 'message_detail'
-
+    def __str__(self):
+        return str(self.message_id)
 
 class NotificationDetail(models.Model):
     notification_id = models.IntegerField(db_column='Notification_ID', primary_key=True)  # Field name made lowercase.
@@ -100,8 +101,10 @@ class NotificationDetail(models.Model):
     notification_type = models.CharField(db_column='Notification_Type', max_length=32, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-
         db_table = 'notification_detail'
+
+    def __str__(self):
+        return str(self.notification_id)
 
 RequestTypeChoices = [('Regular','Regular'),('Priority','Priority')]
 RequestStatusChoices = [('New','New'),('In Process','In Process'),('Scheduled','Scheduled'),('Completed','Completed'),('Cancelled','Cancelled')]
@@ -119,6 +122,8 @@ class RequestDetail(models.Model):
 
         db_table = 'request_detail'
 
+    def __str__(self):
+        return str(self.request_id)
 
 class Route(models.Model):
     route_id = models.AutoField(db_column='Route_ID', primary_key=True)  # Field name made lowercase.
@@ -158,7 +163,7 @@ TRIP_STATUS_CHOICES = (
 
 class Trip(models.Model):
     trip_id = models.AutoField(db_column='Trip_ID',primary_key=True)  # Field name made lowercase.
-    trip_date = models.DateField(db_column='Trip_Date', blank=True, null=True)  # Field name made lowercase.
+    trip_date = models.DateField(db_column='Trip_Date', default = timezone.now())  # Field name made lowercase.
     route = models.ForeignKey('Route',on_delete=models.DO_NOTHING)  # Field name made lowercase.
     trip_status =  models.CharField(db_column='Trip_Status', max_length=10, choices=TRIP_STATUS_CHOICES)  # Field name made lowercase.
     truck = models.ForeignKey('Truck',on_delete=models.DO_NOTHING)  # Field name made lowercase.
