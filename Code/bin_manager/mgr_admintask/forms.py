@@ -4,10 +4,9 @@ from mgr_database.models import Trip
 
 
 class TripForm(ModelForm):
-    trip_date = forms.DateField(widget = forms.SelectDateWidget(
-    empty_label = ("Choose Year", "Choose Month", "Choose Day"),
-    ))
-    trip_id = forms.IntegerField(initial = None)
+    # trip_date = forms.DateField(widget = forms.SelectDateWidget(
+    # empty_label = ("Choose Year", "Choose Month", "Choose Day"),
+    # ))
     class Meta:
         model = Trip
-        fields = ['trip_id','trip_date','route_id']
+        fields = '__all__'

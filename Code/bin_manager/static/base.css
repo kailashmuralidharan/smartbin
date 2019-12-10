@@ -1,0 +1,15 @@
+body, html {
+  height: 100%;
+}
+.bg {
+  /* The image used */
+  background-image: url("bin.jpg");
+  opacity: 0.85;
+  /* Full height */
+  height: 10%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

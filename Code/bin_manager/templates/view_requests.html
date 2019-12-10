@@ -1,0 +1,46 @@
+{% extends "base_user.html" %}
+{% block content2 %}
+
+
+<div class="centerstage">
+    <table class = "table">
+    <thead class = "thead-dark">
+        <th>Request ID</th>
+        <th>Request Type</th>
+        <th>Request Date</th>
+        <th>Pickup Date</th>
+        <th>Request Status</th>
+        <th>Cancel</th>
+    </thead>
+    {% if  view_request %}
+    {% for request in view_request %}
+        <div class="post">
+            <tr>
+                <td>
+                    {{request.request_id}}
+                </td>
+                <td>
+                    {{request.request_type}}
+                </td>
+                <td>
+                    {{request.request_date}}
+                </td>
+                <td>
+                    {{request.pickup_date}}
+                </td>
+                <td>
+                    {{request.request_status}}
+                </td>
+                <td>
+                  <form action="{% url 'customer:view' id=request.request_id %}" method="post"> 	{% csrf_token %}
+                    <input type="submit" value = "Cancel Request" class="btn btn-danger" >
+                  </form>
+                </td>
+            </tr>
+        </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+{% endblock%}

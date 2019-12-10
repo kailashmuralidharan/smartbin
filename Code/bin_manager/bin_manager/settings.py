@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mgr_accounts',
     'mgr_admintask',
+    'mgr_customer',
     'mgr_database',
     'mgr_truckdriver',
+    'mgr_payments'
 ]
 
 MIDDLEWARE = [
@@ -94,6 +96,12 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'bin_manager',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

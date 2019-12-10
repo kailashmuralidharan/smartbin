@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav nav-bar nav">
+            <li class = "nav-item">
+                <li> <a class = "navbar-brand bigbrand" href="#"> Customer Hub </a></li>
+            </li>
+            <li class = "nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Requests
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'customer:request' %}">Request Pickup</a>
+                  <a class="dropdown-item" href="{% url 'customer:viewrequests' %}">View Pickup</a>
+                </div>
+            </li>
+            <!-- To be done, Issues model required?-->
+            <li class = "nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Issue
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'admintask:create_route' %}">Report an Issue</a> <!-- To be corrected-->>
+                </div>
+            </li>
+            <!-- Doesn't work 404-->
+            <li class = "nav-item">
+              <a class = "nav-link" href="{% url 'customer:updateprofile' %}"> Update Profile </a>
+            </li>
+            <li class = "nav-item">
+              <a class = "nav-link" href="{% url 'customer:payBill' %}"> Pay </a>
+            </li>
+        </div>
+
+    </nav>
+
+
+    <div class="content container">
+        {% block content2 %}
+        <h1>Welcome Customer! -Name Here-</h1>
+        {% endblock %}
+
+    </div>
+
+
+{% endblock %}

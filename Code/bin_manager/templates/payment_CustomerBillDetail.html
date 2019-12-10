@@ -1,0 +1,18 @@
+{% extends "base_admin.html" %}
+{% block content2 %}
+<div>
+    {% if  customer_billDetailedView %}
+      <p><strong>Name:</strong> {{ customer_billDetailedView.name }}</p> <!-- author detail link not yet defined -->
+      <p><strong>customerType:</strong> {{ customer_billDetailedView.customerType }}</p>
+      <p><strong>customerType:</strong> {{ customer_billDetailedView.customerType }}</p>
+      <p><strong>baseFare:</strong> {{ customer_billDetailedView.baseFare }}</p>
+      <p><strong>discount:</strong> {{ customer_billDetailedView.discount }}</p>
+      <p><strong>tax:</strong> {{ customer_billDetailedView.tax }}</p>
+      <p><strong>PriorityRequestFare:</strong> {{ customer_billDetailedView.PriorityRequestFare }}</p>
+      <p><strong>total:</strong> {{ customer_billDetailedView.total }}</p>
+      <p><strong>dueDate:</strong> {{ customer_billDetailedView.dueDate }}</p>
+      <p><strong>totalNumberofRequests:</strong> {{ customer_billDetailedView.totalNumberofRequests }}</p>
+      <p><strong>totalNumberofPriorityRequests:</strong> {{ customer_billDetailedView.totalNumberofPriorityRequests }}</p>
+      <p><strong>discountPercentage:</strong> {{ customer_billDetailedView.discountPercentage }}</p>
+  </div>
+{% endblock %}
