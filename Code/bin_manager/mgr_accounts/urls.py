@@ -22,12 +22,7 @@ from django.conf.urls import include
 app_name = 'accounts'
 
 urlpatterns = [
-    # path('', views.Index.as_view(),name = 'Home'), #default
-    path('', views.CustomerIndex.as_view(),name = 'Customer_Hub'),
-    path('request/',views.createRequest.as_view(), name = 'request'),
-    path('viewRequest/',views.viewRequests.as_view(), name = 'viewrequests'),
-    path('profile/',views.updateProfile.as_view(), name = 'updateprofile'),
-    path('pay/',views.payBill.as_view(), name = 'payBill'),
+    path('', views.Index.as_view(),name = 'Home'), #default
     # path('admin/',include(adm_u),name='admin_user')
     # path('admin/',adm_v.AdminIndex.as_view(),name='admin_user')
     # path('admin/',include('mgr_custtask.urls'),name='cust_user')

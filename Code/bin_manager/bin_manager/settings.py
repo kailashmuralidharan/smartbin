@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mgr_accounts',
     'mgr_admintask',
+    'mgr_customer',
     'mgr_database',
     'mgr_truckdriver',
     'mgr_payments'

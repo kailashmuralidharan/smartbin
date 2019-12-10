@@ -23,7 +23,7 @@ class updateProfile(UpdateView):
     fields = ("first_name", "last_name", "email_id", "password", "address_line1", "address_line2", "city", "pincode", "contact_number")
     template_name = 'createUser.html'
     model = Account
-    success_url = reverse_lazy('accounts:Customer_Hub')
+    success_url = reverse_lazy('customer:Customer_Hub')
 
     def get_object(self):
         id_ = self.kwargs.get('id')
