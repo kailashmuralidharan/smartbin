@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, FormView, DeleteView)
 from mgr_database.models import RequestDetail
 from mgr_admintask.adminindex import AdminIndex
-from mgr_database.models import  Route, Account, RequestDetail, Block, TruckDriver, Truck
+from django.utils import timezone
 from django.http import HttpResponse
 from django.urls import reverse_lazy, reverse
 from .view_route import createRoute, updateRoute, deleteRoute, listRoute
@@ -30,7 +30,7 @@ class RequestListView(ListView):
     template_name = 'demand.html'
 
     def get_queryset(self):
-        return RequestDetail.objects.filter(pickup_date = '2019-11-20')
+        return RequestDetail.objects.filter(pickup_date = timezone.now())
 
 
 # class viewCustomerDetails(ListView):

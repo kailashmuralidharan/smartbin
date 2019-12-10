@@ -5,6 +5,7 @@
 <div class="centerstage">
     <table class = "table">
     <thead class = "thead-dark">
+        <th>Request Date</th>
         <th>Request Id</th>
         <th>Customer Id</th>
         <th>Request Type</th>
@@ -15,6 +16,9 @@
         <div class="post">
             <tr>
                 <td>
+                    {{request.request_date}}
+                </td>
+                <td>
                     {{request.request_id}}
                 </td>
                 <td>
@@ -24,7 +28,7 @@
                     {{request.request_type}}
                 </td>
                 <td>
-                    {{request.bin_id}}
+                    {{request.trip}}
                 </td>
             </tr>
         </div>
