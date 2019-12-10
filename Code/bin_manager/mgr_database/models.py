@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
+from datetime import timedelta
+from django.utils import timezone
 # Create your models here.
 
 
@@ -108,8 +111,8 @@ class RequestDetail(models.Model):
     customer = models.ForeignKey('Customer',on_delete=models.DO_NOTHING)  # Field name made lowercase.
     trip = models.ForeignKey('Trip',on_delete=models.DO_NOTHING,default=0)  # Field name made lowercase.
     request_type = models.CharField(db_column='Request_Type', max_length=128, choices = RequestTypeChoices, default='Regular')  # Field name made lowercase.
-    request_date = models.DateField(db_column='Request_Date', blank=True, null=True)  # Field name made lowercase.
-    pickup_date = models.DateField(db_column='Pickup_Date', blank=True, null=True)  # Field name made lowercase.
+    request_date = models.DateField(db_column='Request_Date', default = timezone.now())  # Field name made lowercase.
+    pickup_date = models.DateField(db_column='Pickup_Date', default = timezone.now() + timedelta(days=3))  # Field name made lowercase.
     request_status = models.CharField(db_column='Request_status', max_length=32, choices = RequestStatusChoices, default = 'New')  # Field name made lowercase.
 
     class Meta:
@@ -143,6 +146,8 @@ class Score(models.Model):
 
         db_table = 'score'
 
+    def __str__(self):
+        return str(self.request)
 
 TRIP_STATUS_CHOICES = (
     ('cancelled','CANCELLED'),
@@ -160,31 +165,68 @@ class Trip(models.Model):
     truck_driver = models.ForeignKey('TruckDriver',on_delete=models.DO_NOTHING)  # Field name made lowercase.
 
     class Meta:
-
         db_table = 'trip'
 
+    def __str__(self):
+        return str(self.trip_id)
+
+TRUCK_STATUS_CHOICES = (
+    ('on trip','ON TRIP'),
+    ('available','AVAILABLE'),
+    ('inactive','INACTIVE'),
+)
+
+TRUCK_TYPE_CHOICES = (
+    (0,'COMPOST'),
+    (1,'RECYCLE'),
+    (2,'GENERAL'),
+    (9,'UNASSIGNED'),
+)
+
+TRUCK_CAPACITY_CHOICES = (
+    (50,'SMALL'),
+    (100,'MEDIUM'),
+    (200,'LARGE'),
+)
+
+TRUCK_WEIGHT_CHOICES = (
+    (50,'SMALL'),
+    (100,'MEDIUM'),
+    (200,'LARGE'),
+)
 
 class Truck(models.Model):
     truck_id = models.AutoField(db_column='Truck_ID', primary_key=True)  # Field name made lowercase.
-    truck_capacity = models.IntegerField(db_column='Truck_Capacity', blank=True, null=True)  # Field name made lowercase.
-    truck_type = models.IntegerField(db_column='Truck_Type', blank=True, null=True)  # Field name made lowercase.
-    truck_weight = models.IntegerField(db_column='Truck_Weight', blank=True, null=True)  # Field name made lowercase.
-    truck_status = models.CharField(db_column='Truck_Status', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    truck_capacity = models.IntegerField(db_column='Truck_Capacity', blank=True,choices = TRUCK_CAPACITY_CHOICES, default = 50)  # Field name made lowercase.
+    truck_type = models.IntegerField(db_column='Truck_Type', blank=True,choices = TRUCK_TYPE_CHOICES, default = 9)  # Field name made lowercase.
+    truck_weight = models.IntegerField(db_column='Truck_Weight', blank=True,choices = TRUCK_WEIGHT_CHOICES, default = 50)  # Field name made lowercase.
+    truck_status = models.CharField(db_column='Truck_Status', max_length=32, blank=True, choices = TRUCK_STATUS_CHOICES,default = 'available')  # Field name made lowercase.
 
     class Meta:
 
         db_table = 'truck'
 
+    def __str__(self):
+        return str(self.truck_id)
+
+DRIVER_STATUS_CHOICES = (
+    ('on trip','ON TRIP'),
+    ('available','AVAILABLE'),
+    ('inactive','INACTIVE'),
+)
 
 class TruckDriver(models.Model):
     truck_driver_id = models.AutoField(db_column='Truck_Driver_ID', primary_key=True)  # Field name made lowercase.
     user = models.ForeignKey('Account',on_delete=models.DO_NOTHING)  # Field name made lowercase.
-    driver_status = models.CharField(db_column='Driver_status', max_length=32, blank=True, null=True)  # Field name made lowercase.
-    service_hours = models.IntegerField(blank=True, null=True)
+    driver_status = models.CharField(db_column='Driver_status', max_length=32, choices = DRIVER_STATUS_CHOICES,default='available')  # Field name made lowercase.
+    service_hours = models.IntegerField(blank=True, null=True,default = 0)
 
     class Meta:
 
         db_table = 'truck_driver'
+
+    def __str__(self):
+        return str(self.truck_driver_id)
 
 
 class UserType(models.Model):
@@ -233,3 +275,6 @@ class Issues_Detail(models.Model):
     class Meta:
 
         db_table = 'issues_detail'
+
+    def __str__(self):
+        return str(self.issue_id)

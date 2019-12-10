@@ -22,12 +22,17 @@ class TripManager:
 
 class Receiver:
     stage_error = False
+    waste = ''
     def action(self):
         print('Starting stage...')
     def set_error(self,error):
         self.stage_error = error
     def check_error(self):
         return self.stage_error
+    def set_waste(self,waste):
+        self.waste = waste
+    def get_waste(self):
+        return self.waste
 
 
 
@@ -38,6 +43,7 @@ class Manager:
     def startWork(self,wasteType):
         self.stages.append('Starting work for '+wasteType)
         receiver = Receiver()
+        receiver.set_waste(wasteType)
         stage1 = scorer.ScoreRequests(receiver)
         stage2 = scheduler.ScheduleTrip(receiver)
         stage3 = assigner.AssignStuffs(receiver)

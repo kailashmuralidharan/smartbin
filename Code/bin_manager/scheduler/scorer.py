@@ -1,8 +1,11 @@
 # import manager.Command
 #
+from datetime import date
+from django.db.models import Q
 from scheduler import commander
+from django.utils import timezone
 
-from mgr_database.models import RequestDetail, Score
+from mgr_database.models import RequestDetail, Score, Customer
 
 class RequestScoreElements:
     _distance = 0
@@ -49,8 +52,15 @@ class ScoreRequests(commander.Command):
     def execute(self,stages):
         self._receiver.action()
         print('This is the scorer !')
-        stages.append('Scorer starting')
+        stages.append('Scorer starting '+str(date.today()))
+        # stages.append(str(timezone.now()))
         if not self._receiver.check_error() :
+            req_today = RequestDetail.objects.filter(Q(pickup_date__lte = date.today()) & Q(request_status = 'New' or 'In Process'))
+            for req in req_today:
+                age = date.today() - req.pickup_date
+                distance = 3 #this will come from maps
+
+
             request1 = RequestScoreElements(-1,2,20)
             request2 = RequestScoreElements(-2,1,50)
             request3 = RequestScoreElements(-5,1,40)
@@ -65,7 +75,7 @@ class ScoreRequests(commander.Command):
                 scorecalculator.calculateWeightScore()
                 scorecalculator.calculateTotalScore()
                 scorecalculator.displayScore()
-            stages.append('Scorer completed')
+            stages.append('Scorer completed'+self._receiver.get_waste())
             self._receiver.set_error(False)
         else:
             print('Previous Stage Error!')
