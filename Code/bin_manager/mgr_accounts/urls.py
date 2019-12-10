@@ -17,14 +17,10 @@ from django.urls import path
 from mgr_accounts import views
 from mgr_admintask import views as adm_v
 from mgr_admintask import urls as adm_u
-from django.conf.urls import include 
+from django.conf.urls import include
 
 app_name = 'accounts'
 
 urlpatterns = [
-    path('', views.Index.as_view(),name = 'Home'), #default
-    # path('admin/',include(adm_u),name='admin_user')
-    # path('admin/',adm_v.AdminIndex.as_view(),name='admin_user')
-    # path('admin/',include('mgr_custtask.urls'),name='cust_user')
-    # path('admin/',include('mgr_drivtask.urls'),name='driv_user')
+    path('', views.Index.as_view(),name = 'Home'),
 ]
