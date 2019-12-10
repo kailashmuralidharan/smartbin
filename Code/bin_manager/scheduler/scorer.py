@@ -1,7 +1,8 @@
 # import manager.Command
 #
-import commander
+from scheduler import commander
 
+from mgr_database.models import RequestDetail, Score
 
 class RequestScoreElements:
     _distance = 0
@@ -43,20 +44,29 @@ class CalculateScore:
 
 
 class ScoreRequests(commander.Command):
-    def execute(self):
+    def get_requests(self):
+        pass
+    def execute(self,stages):
         self._receiver.action()
         print('This is the scorer !')
-        request1 = RequestScoreElements(-1,2,20)
-        request2 = RequestScoreElements(-2,1,50)
-        request3 = RequestScoreElements(-5,1,40)
-        request_list = []
-        request_list.append(request1)
-        request_list.append(request2)
-        request_list.append(request3)
-        for requests in request_list:
-            scorecalculator = CalculateScore(requests)
-            scorecalculator.calculateDistanceScore()
-            scorecalculator.calculateAgeScore()
-            scorecalculator.calculateWeightScore()
-            scorecalculator.calculateTotalScore()
-            scorecalculator.displayScore()
+        stages.append('Scorer starting')
+        if not self._receiver.check_error() :
+            request1 = RequestScoreElements(-1,2,20)
+            request2 = RequestScoreElements(-2,1,50)
+            request3 = RequestScoreElements(-5,1,40)
+            request_list = []
+            request_list.append(request1)
+            request_list.append(request2)
+            request_list.append(request3)
+            for requests in request_list:
+                scorecalculator = CalculateScore(requests)
+                scorecalculator.calculateDistanceScore()
+                scorecalculator.calculateAgeScore()
+                scorecalculator.calculateWeightScore()
+                scorecalculator.calculateTotalScore()
+                scorecalculator.displayScore()
+            stages.append('Scorer completed')
+            self._receiver.set_error(False)
+        else:
+            print('Previous Stage Error!')
+            stages.append('Scorer not completed!!')

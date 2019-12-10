@@ -1,0 +1,29 @@
+{% extends "base_admin.html" %}
+{% block content2 %}
+
+<form class="" action="{% url 'admintask:auto_trip'%}" method="get">
+  <input name = 'autotrip' type="submit" value = "General" class="btn btn-primary" >
+  <input name = 'autotrip' type="submit" value = "Recycle" class="btn btn-success" >
+  <input name = 'autotrip' type="submit" value = "Compost" class="btn btn-danger" >
+</form>
+
+<div class="centerstage">
+    <table class = "table">
+    <thead class = "thead-dark">
+        <th>Message</th>
+    </thead>
+    {% if  scheduler_stages %}
+    {% for stage in scheduler_stages %}
+        <div class="post">
+            <tr>
+                <td>
+                    {{stage}}
+                </td>
+            </tr>
+        </div>
+    {% endfor %}
+    {% endif %}
+
+
+
+{% endblock%}

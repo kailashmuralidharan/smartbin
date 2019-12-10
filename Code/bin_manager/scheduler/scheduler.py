@@ -1,4 +1,4 @@
-import commander
+from scheduler import commander
 
 
 class CreateTrip():
@@ -21,13 +21,19 @@ class CreateTrip():
 
 
 class ScheduleTrip(commander.Command):
-    def execute(self):
+    def execute(self,stages):
         self._receiver.action()
         print('This is the scheduler !')
-
-        trip = CreateTrip()
-        trip.set_truck_weight_limit()
-        trip.fetch_requests_for_today()
-        trip.assign_requests_for_route()
-        trip.update_requests_status()
-        trip.send_notification()
+        stages.append('Scheduler starting')
+        if not self._receiver.check_error() :
+            trip = CreateTrip()
+            trip.set_truck_weight_limit()
+            trip.fetch_requests_for_today()
+            trip.assign_requests_for_route()
+            trip.update_requests_status()
+            trip.send_notification()
+            stages.append('Scheduler completed')
+            self._receiver.set_error(False)
+        else:
+            print('Previous Stage Error!')
+            stages.append('Scheduler not completed!!')

@@ -29,7 +29,7 @@
                   <a class="dropdown-item" href="{% url 'admintask:list_block' %}">Manage Block</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{% url 'admintask:create_customer' %}">Create Customer</a>
-                  <a class="dropdown-item" href="#">Manage Customer</a>
+                  <a class="dropdown-item" href="{% url 'admintask:search_customer' %}">Manage Customer</a>
                 </div>
             </li>
             <li class = "nav-item dropdown">
@@ -57,6 +57,7 @@
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{% url 'admintask:create_trip' %}">Create Trip</a>
                   <a class="dropdown-item" href="#">Manage Trip</a>
+                  <a class="dropdown-item" href="{% url 'admintask:auto_trip' %}">Create Auto Trip</a>
                   <!-- <a class="dropdown-item" href="#">Update Trip</a> -->
                 </div>
             </li>

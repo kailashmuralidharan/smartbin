@@ -1,4 +1,4 @@
-import commander
+from scheduler import commander
 
 
 # Mediator design pattern is used for assigning the waste type, truck and the driver to the trip
@@ -103,19 +103,25 @@ class WasteType:
 
 class AssignStuffs(commander.Command):
 
-    def execute(self):
+    def execute(self,stages):
         self._receiver.action()
         print('This is the assigner !')
-        mediator = Mediator()
-        freeDriver  = FreeTruckDriver(mediator)
-        freeTruck = FreeTruck(mediator)
-        wastetype = WasteType(mediator)
-        wastetype.assign_waste()
-        freeTruck.assign_truck()
-        freeDriver.assign_driver()
-        mediator.set_mediator_status()
-        print('The Assignment Status is :', mediator.get_mediator_status() )
-
+        stages.append('Assigner starting')
+        if not self._receiver.check_error() :
+            mediator = Mediator()
+            freeDriver  = FreeTruckDriver(mediator)
+            freeTruck = FreeTruck(mediator)
+            wastetype = WasteType(mediator)
+            wastetype.assign_waste()
+            freeTruck.assign_truck()
+            freeDriver.assign_driver()
+            mediator.set_mediator_status()
+            print('The Assignment Status is :', mediator.get_mediator_status() )
+            stages.append('Assigner completed')
+            self._receiver.set_error(False)
+        else:
+            print('Previous Stage Error!')
+            stages.append('Assigner not completed!!')
 
 
 
