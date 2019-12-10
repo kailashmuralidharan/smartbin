@@ -37,7 +37,7 @@ class PriorityFareCalculator(ICalculator):
     """
     Add responsibilities to the component.
     """
-    priorityFare = 5
+    priorityFare = 5.0
     def GenerateBill(self,customerDetail):
         # ...
         self._billGenerator.GenerateBill(customerDetail)
@@ -50,7 +50,7 @@ class TaxCalculator(ICalculator):
     """
     Add responsibilities to the component.
     """
-    taxPercentage = 10
+    taxPercentage = 10.0
     def GenerateBill(self,customerDetail):
         # ...
         self._billGenerator.GenerateBill(customerDetail)
@@ -64,7 +64,7 @@ class DiscountCalculator(ICalculator):
     Add responsibilities to the component.
     """
     # isDiscountAvailable = True #will be 
-    discountPercentage = 10
+    discountPercentage = 10.0
 
     def GenerateBill(self,customerDetail):
         # ...
@@ -81,7 +81,7 @@ class BaseFareCalculator(IBillGenerator):
     Define an object to which additional responsibilities can be
     attached.
     """
-    baseFare = 10
+    baseFare = 10.0
 
     # self._customerType = customerType
     def GenerateBill(self,customerDetail):
@@ -99,7 +99,7 @@ class CustomerBillGenerator(IBillGenerator):
     """
     isBillGenerationCompleted = False
     customerBillDetails =[]
-    cacheKey = "GeneratedBills"
+    # cacheKey = "GeneratedBills"
 
     def GetAllCustomersToProcess(self):
         #  customerTypeArg = [customerType.Platinum, customerType.Gold, customerType.Regular]
@@ -125,14 +125,14 @@ class CustomerBillGenerator(IBillGenerator):
         customerDetail.calculateTotal()
         return
 
-    def CacheResults(self):
-            if (cache.cache.get(self.cacheKey)):
-                return
-            else:
-                cache.cache.set(self.cacheKey,self.customerBillDetails,500)
-            return
-    def GetCachedResult(self):
-        return cache.cache.get(self.cacheKey)
+    # def CacheResults(self):
+    #         if (cache.cache.get(self.cacheKey)):
+    #             return
+    #         else:
+    #             cache.cache.set(self.cacheKey,self.customerBillDetails,500)
+    #         return
+    # def GetCachedResult(self):
+    #     return cache.cache.get(self.cacheKey)
 
     def GenerateBill(self):
         self.customerBillDetails = self.GetAllCustomersToProcess()
@@ -140,7 +140,7 @@ class CustomerBillGenerator(IBillGenerator):
             print(customerDetail.customerType)
             self.GenerateMonthlyBill(customerDetail)
         self.isBillGenerationCompleted =True
-        self.CacheResults()
+        # self.CacheResults()
 
 
 # Using enum class create enumerations
